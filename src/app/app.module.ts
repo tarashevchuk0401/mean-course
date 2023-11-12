@@ -16,6 +16,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { PostService } from './post/post.service';
 import { HttpClientModule } from '@angular/common/http'
 import { AppRoutingModule } from './app.routing.module';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { AppRoutingModule } from './app.routing.module';
     MatToolbarModule,
     MatExpansionModule,
     HttpClientModule,
+    MatProgressSpinnerModule,
   ],
   providers: [PostService],
   bootstrap: [AppComponent]
