@@ -16,8 +16,11 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { PostService } from './post/post.service';
 import { HttpClientModule } from '@angular/common/http'
 import { AppRoutingModule } from './app.routing.module';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {MatPaginatorModule} from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { LoginComponent } from './auth/login/login/login.component';
+import { SignupComponent } from './auth/signup/signup/signup.component';
+import { AuthService } from './auth/signup/auth.service';
 
 
 @NgModule({
@@ -25,7 +28,9 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     AppComponent,
     PostCreateComponent,
     HeaderComponent,
-    PostListComponent
+    PostListComponent,
+    LoginComponent,
+    SignupComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,7 +48,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     ReactiveFormsModule,
     MatPaginatorModule,
   ],
-  providers: [PostService],
+  providers: [PostService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
