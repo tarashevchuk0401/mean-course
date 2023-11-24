@@ -14,11 +14,11 @@ export class SignupComponent {
   constructor(public authService: AuthService){}
 
   onSignup(form: NgForm){
-    console.log(form.value);
     if(form.invalid){
       return
     }
-    this.authService.createUser(form.value.email, form.value.password).subscribe(d => console.log('sign'))
-
+    this.isLoading = true;
+    this.authService.createUser(form.value.email, form.value.password)
+    .subscribe()
   }
 }
