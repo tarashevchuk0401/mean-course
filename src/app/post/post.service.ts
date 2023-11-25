@@ -31,12 +31,14 @@ export class PostService {
               title: post.title,
               content: post.content,
               id: post._id,
-              imagePath: post.imagePath
+              imagePath: post.imagePath,
+              creator: post.creator,
             };
           }), maxPosts: postData.maxPosts}
         })
       )
       .subscribe(transformedPostData => {
+
         this.posts = transformedPostData.posts;
         this.postsUpdated.next({posts: [...this.posts], postCount: transformedPostData.maxPosts})
       });
