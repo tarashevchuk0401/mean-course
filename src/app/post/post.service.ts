@@ -11,14 +11,14 @@ import { AuthService } from '../auth/auth.service';
 })
 export class PostService {
   private posts: Post[] = [];
-  private postsUpdated = new Subject<{posts: Post[], postCount: number}>();
+  private postsUpdated = new Subject<{ posts: Post[], postCount: number }>();
 
   constructor(
-    private http: HttpClient, 
+    private http: HttpClient,
     private router: Router,
     private authService: AuthService,
-  
-    ) { }
+
+  ) { }
 
   getPosts(postsPerPage: number, currentPage: number) {
     const queryParams = `?pagesize=${postsPerPage}&page=${currentPage}`;
@@ -26,21 +26,24 @@ export class PostService {
       .get<{ message: string; posts: any, maxPosts: number }>("http://localhost:3000/api/posts" + queryParams)
       .pipe(
         map(postData => {
-          return {posts: postData.posts.map(post => {
-            return {
-              title: post.title,
-              content: post.content,
-              id: post._id,
-              imagePath: post.imagePath,
-              creator: post.creator,
-            };
-          }), maxPosts: postData.maxPosts}
+          return {
+            posts: postData.posts.map(post => {
+              return {
+                title: post.title,
+                content: post.content,
+                id: post._id,
+                imagePath: post.imagePath,
+                creator: post.creator,
+
+              };
+            }), maxPosts: postData.maxPosts
+          }
         })
       )
       .subscribe(transformedPostData => {
 
         this.posts = transformedPostData.posts;
-        this.postsUpdated.next({posts: [...this.posts], postCount: transformedPostData.maxPosts})
+        this.postsUpdated.next({ posts: [...this.posts], postCount: transformedPostData.maxPosts })
       });
   }
 
@@ -49,7 +52,13 @@ export class PostService {
   }
 
   getPost(id: string) {
-    return this.http.get<{ _id: string, title: string, content: string, imagePath: string }>(
+    return this.http.get<{
+      _id: string,
+      title: string,
+      content: string,
+      imagePath: string
+      creator: string,
+    }>(
       "http://localhost:3000/api/posts/" + id
     );
   }
@@ -90,7 +99,8 @@ export class PostService {
         id: id,
         title: title,
         content: content,
-        imagePath: image
+        imagePath: image,
+        creator: null,
       };
     }
     this.http
@@ -112,13 +122,13 @@ export class PostService {
   }
 
   deletePost(postId: string) {
-   return this.http
+    return this.http
       .delete("http://localhost:3000/api/posts/" + postId)
-      // .subscribe(() => {
-      //   const updatedPosts = this.posts.filter(post => post.id !== postId);
-      //   this.posts = updatedPosts;
-      //   this.postsUpdated.next([...this.posts]);
-      // });
+    // .subscribe(() => {
+    //   const updatedPosts = this.posts.filter(post => post.id !== postId);
+    //   this.posts = updatedPosts;
+    //   this.postsUpdated.next([...this.posts]);
+    // });
   }
 }
 

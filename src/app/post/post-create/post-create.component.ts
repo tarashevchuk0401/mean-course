@@ -16,7 +16,7 @@ export class PostCreateComponent implements OnInit {
   private mode = 'create';
   isLoading: boolean = false;
   postId: string;
-  post: Post = { title: '', content: '', id: '123', imagePath: 'empty' };
+  post: Post = { title: '', content: '', id: '123', imagePath: 'empty', creator: null };
   form: FormGroup;
   imagePreview: any;
 
@@ -45,6 +45,7 @@ export class PostCreateComponent implements OnInit {
             title: postData.title,
             content: postData.content,
             imagePath: postData.imagePath,
+            creator: postData.creator,
           };
           this.form.setValue({
             title: this.post.title,
